@@ -1,0 +1,49 @@
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/OpenSans-Regular.ttf') format('ttf');
+}
+
+/* Правильные шрифты !!! */
+
+@font-face {
+    font-family: "Open Sans Semibold";
+    src: url('../fonts/OpenSans-Semibold.ttf') format('ttf');
+}
+
+@font-face {
+    font-family: 'Open Sans Light';
+    src: url('../fonts/OpenSans-Light.ttf') format('ttf');
+}
+
+@font-face {
+    font-family: 'Open Sans Bold';
+    src: url('../fonts/OpenSans-Bold.ttf') format('ttf');
+}
+
+* {
+    backgroundColor: white;
+    viewModeBackground: #313e43;
+    dividerColor: #dadadc;
+    svgButtonColor: #a3a8a8;
+    grayTextColor: rgba(255, 255, 255, 0.5);
+    grayBorderColor: rgba(255, 255, 255, 0.4);
+    mintColor: #2fc5ac;
+    darkMintColor: #2da793;
+    redColor: #e74b42;
+    stageHeaderBackground: #f4f4f4; /* OK. Цвет заголовка любого окна*/
+    contactListBackground: white;
+    contactListCellHover: mintColor;
+}
+
+.text-field {
+    -fx-font-family: 'Open Sans';
+    -fx-font-size: 15px;
+    -fx-prompt-text-fill: #e74b42;
+    -fx-text-fill: mintColor;
+}
+
+/*.text-field .prompt-text {*/
+    /*-fx-font-family: 'Open Sans';*/
+    /*-fx-font-size: 13px;*/
+    /*-fx-text-fill: mintColor;*/
+/*}*/
