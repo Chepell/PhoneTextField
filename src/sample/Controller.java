@@ -37,29 +37,39 @@ public class Controller {
         countryPhonePattern.put("Украина", "+380 __ ___-__-__");
         countryPhonePattern.put("Казахстан", "+77 __ ___-__-__");
         countryPhonePattern.put("Польша", "+48 __ ___-__-__");
-
-//        choiceBox.getItems().add("Россия");
-//        choiceBox.getItems().add("Казахстан");
-//        choiceBox.getItems().add("Беларусь");
-//        choiceBox.getItems().add("Украина");
-//        choiceBox.getItems().add("Польша");
-
+        countryPhonePattern.put("Германия", "+49 ___ ___-__-__");
 
         Set<String> countriesSet = countryPhonePattern.keySet();
-
         ObservableList<String> countriesList = FXCollections.observableArrayList(countriesSet);
-
         choiceBox.setItems(countriesList);
 
+        // страна по умолчанию
+        choiceBox.setValue("Россия");
+        String phonePattern = countryPhonePattern.get(choiceBox.getValue());
+        phoneField.setPromptText(phonePattern);
+//        phoneField.setText("+7");
+        resultLabel.setText(phonePattern);
 
-//        resultLabel.textProperty().bind(choiceBox.valueProperty());
+
+
 
         choiceBox.setOnAction(actionEvent -> {
-            String phonePattern = countryPhonePattern.get(choiceBox.getValue());
-            phoneField.setPromptText(phonePattern);
+            String phonePattern1 = countryPhonePattern.get(choiceBox.getValue());
+            phoneField.clear();
+            phoneField.setPromptText(phonePattern1);
+//            phoneField.setText("+7");
+
+            resultLabel.setText(phonePattern1);
         });
 
-        resultLabel.setText("+7 ___ ___-__-__");
+        phoneField.setOnMouseClicked(actionEvent -> {
+            String value = countryPhonePattern.get(choiceBox.getValue());
+            String substring = value.substring(0, 2);
+            phoneField.setText(substring);
+            phoneField.positionCaret(substring.length());
+        });
+
+//        resultLabel.setText("+7 ___ ___-__-__");
         resultLabel.setStyle("-fx-font: 15pt 'Open Sans'");
     }
 }
