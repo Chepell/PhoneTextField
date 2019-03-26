@@ -26,7 +26,7 @@
     dividerColor: #dadadc;
     svgButtonColor: #a3a8a8;
     grayTextColor: rgba(255, 255, 255, 0.5);
-    grayBorderColor: rgba(255, 255, 255, 0.4);
+    backgroundColor: rgba(255, 255, 255, 0.4);
     mintColor: #2fc5ac;
     darkMintColor: #2da793;
     redColor: #e74b42;
@@ -38,8 +38,8 @@
 .text-field {
     -fx-font-family: 'Open Sans';
     -fx-font-size: 15px;
-    -fx-prompt-text-fill: #e74b42;
-    -fx-text-fill: mintColor;
+    -fx-prompt-text-fill: orange;
+    -fx-text-fill: black;
 }
 
 /*.text-field .prompt-text {*/
