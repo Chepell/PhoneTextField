@@ -5,7 +5,7 @@ package sample;
  * 26.03.2019
  */
 
-public class CountryPhone {
+public class PhonePattern {
     private String countryRU;
     private String countryEN;
     private String isoCode;
@@ -17,8 +17,9 @@ public class CountryPhone {
     private int secondSpace;
     private int firstDash;
     private int secondDash;
+    private String regex;
 
-    public CountryPhone(String countryRU, String countryEN, String isoCode, String phoneMask) {
+    public PhonePattern(String countryRU, String countryEN, String isoCode, String phoneMask, String regex) {
 
         this.countryRU = countryRU;
         this.countryEN = countryEN;
@@ -34,6 +35,8 @@ public class CountryPhone {
 
         this.firstDash = phoneMask.indexOf("-");
         this.secondDash = phoneMask.indexOf("-", firstDash + 1);
+
+        this.regex = regex;
     }
 
     public String getCountryRU() {
@@ -80,9 +83,13 @@ public class CountryPhone {
         return secondDash;
     }
 
+    public String getRegex() {
+        return regex;
+    }
+
     @Override
     public String toString() {
-        return "CountryPhone{" +
+        return "PhonePattern{" +
                 "isoCode='" + isoCode + '\'' +
                 ", countryCode=" + countryCode +
                 ", phoneLength=" + phoneLength +

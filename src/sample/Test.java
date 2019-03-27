@@ -9,14 +9,20 @@ import java.util.Map;
 
 public class Test {
     public static void main(String[] args) {
-        Map<String, CountryPhone> map = CountryMap.getMap();
+        Map<String, PhonePattern> map = PhonePatternMap.getMap();
 
 
-        CountryPhone ru = map.get("Украина");
+        PhonePattern by = map.get("Беларусь");
+        PhonePattern ru = map.get("Россия");
 
-        int fullPhoneLength = ru.getFullPhoneLength();
 
         System.out.println(ru);
+        System.out.println(by);
+
+        String str = "+7 9307";
+        int length = str.length();
+        str = str.substring(0, length - 1) + " " + str.substring(length - 1);
+        System.out.println(str);
 
     }
 }
