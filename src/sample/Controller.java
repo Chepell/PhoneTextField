@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -34,7 +35,15 @@ public class Controller {
 
     @FXML
     void initialize() {
-        countryMap = PhonePatternMap.getMap();
+
+        countryMap = PhonePatternMap.getAllCountriesMap();
+
+//        PhonePattern uk = new PhonePattern("Англия", "England", "UK",
+//                "+1  ___ ___-__-__",
+//                "^(\\+(1(\\s(\\s(\\d(\\d(\\d(\\s(\\d(\\d(\\d(-(\\d(\\d(-(\\d(\\d)?)?)?)?)?)?)?)?)?)?)?)?)?)?)?)?)?$");
+//
+//        countryMap.put(uk.getCountryRU(), uk);
+
 
         Set<String> countries = countryMap.keySet();
         ObservableList<String> countriesList = FXCollections.observableArrayList(countries);
@@ -74,7 +83,7 @@ public class Controller {
             }
         });
 
-        phoneField.setOnKeyReleased(keyEvent -> {
+        phoneField.setOnKeyPressed(keyEvent -> {
             PhonePattern phonePattern = countryMap.get(choiceBox.getValue());
             int firstSpace = phonePattern.getFirstSpace();
             int secondSpace = phonePattern.getSecondSpace();
@@ -105,7 +114,7 @@ public class Controller {
 
             // обработчик передвижения по области кода страны, тут всяческий ввод запрещен,
             // либо возврат к полной маске, либо заполнение кода по шаблону
-            if (length <= firstSpace + 1) {
+            if (length <= firstSpace) {
                 if (key == KeyCode.RIGHT || key == KeyCode.ADD) {
                     setCursorToStartInput();
                 } else if (key == KeyCode.LEFT || key == KeyCode.BACK_SPACE) {
@@ -140,7 +149,7 @@ public class Controller {
 
     // ввод в поле кода страны и постановка курсора на дальнейший ввод
     private void setCursorToStartInput() {
-        String countryCode = countryMap.get(choiceBox.getValue()).getCountryCode() + " ";
+        String countryCode = countryMap.get(choiceBox.getValue()).getCountryCode();
         phoneField.clear();
         phoneField.setText(countryCode);
         phoneField.positionCaret(countryCode.length());

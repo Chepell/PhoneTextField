@@ -5,19 +5,19 @@ package sample;
  * 26.03.2019
  */
 
-public class PhonePattern {
-    private String countryRU;
-    private String countryEN;
-    private String isoCode;
-    private String countryCode;
-    private int phoneLength;
-    private int fullPhoneLength;
-    private String phoneMask;
-    private int firstSpace;
-    private int secondSpace;
-    private int firstDash;
-    private int secondDash;
-    private String regex;
+public final class PhonePattern {
+    private final String countryRU;
+    private final String countryEN;
+    private final String isoCode;
+    private final String countryCode;
+    private final int phoneLength;
+    private final int fullPhoneLength;
+    private final String phoneMask;
+    private final int firstSpace;
+    private final int secondSpace;
+    private final int firstDash;
+    private final int secondDash;
+    private final String regex;
 
     public PhonePattern(String countryRU, String countryEN, String isoCode, String phoneMask, String regex) {
 
@@ -25,10 +25,10 @@ public class PhonePattern {
         this.countryEN = countryEN;
         this.isoCode = isoCode;
         this.fullPhoneLength = phoneMask.length();
-        this.phoneLength = fullPhoneLength - 5; // минус количество всех знаков в отформатированной маске
+        this.phoneLength = fullPhoneLength - 6; // минус количество всех знаков в отформатированной маске
         this.phoneMask = phoneMask;
 
-        this.firstSpace = phoneMask.indexOf(" ");
+        this.firstSpace = phoneMask.indexOf(" ") + 2;
         this.secondSpace = phoneMask.indexOf(" ", firstSpace + 1);
 
         this.countryCode = phoneMask.substring(0, firstSpace);
@@ -85,6 +85,42 @@ public class PhonePattern {
 
     public String getRegex() {
         return regex;
+    }
+
+    /**
+     * форматирует полученный номер телефона
+     *
+     * @param simplePhoneNumber принимает номер начинающийся с + и цифр без разделителей и пробелов
+     * @return возвращает отформатированный номер, если переданный в параметре номер не соответствует маске, то null
+     */
+    public String getFormatPhoneNumber(String simplePhoneNumber) {
+        // проверка по длине
+        if (simplePhoneNumber.length() - 1 != phoneLength) {
+            return null;
+        }
+        // проверка по коду страны
+        if (!simplePhoneNumber.contains(countryCode.trim())) {
+            return null;
+        }
+
+        var operatorCode = simplePhoneNumber.substring(firstSpace - 2, secondSpace - 2);
+        var firstNumberPart = simplePhoneNumber.substring(secondSpace - 2, firstDash - 3);
+        var secondNumberPart = simplePhoneNumber.substring(firstDash - 3, secondDash - 4);
+        var thirdNumberPart = simplePhoneNumber.substring(secondDash - 4);
+
+        var formatNumber = new StringBuilder(countryCode);
+        formatNumber.append(operatorCode)
+                .append(" ").append(firstNumberPart)
+                .append("-").append(secondNumberPart)
+                .append("-").append(thirdNumberPart);
+
+        var result = formatNumber.toString();
+
+        if (!result.matches(regex)) {
+            return null;
+        }
+
+        return result;
     }
 
     @Override
